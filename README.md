@@ -29,6 +29,7 @@ DB_PASSWORD=secret
 ```
 
 5. 数据库迁移: `php artisan migrate --seed`
+6. 文件上传: `php artisan storage:link` 或者 `ln -s storage/app/pubc public/storage`
 
 ## 扩展包
 
