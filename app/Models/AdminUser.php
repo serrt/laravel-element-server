@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Http\UploadedFile;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Permission\Traits\HasRoles;
@@ -28,11 +27,6 @@ class AdminUser extends Authenticatable
         self::STATUS_NORMAL => '正常',
         self::STATUS_DISABLE => '禁用'
     ];
-
-    public function setPasswordAttribute($value)
-    {
-        $this->attributes['password'] = Hash::make($value);
-    }
 
     public function setAvatarAttribute($file = null)
     {

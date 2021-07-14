@@ -20,14 +20,10 @@ class AdminTableSeeder extends Seeder
         Role::query()->truncate();
 
         $users = [
-            ['name' => 'Admin', 'username' => 'admin', 'password' => '123456']
+            ['name' => 'Admin', 'username' => 'admin', 'password' => '$2y$10$ZJWy2T22pzl51ShunrRuTOGNoSpBQ96rHJTb14dY12Za2TQr8vui6']
         ];
         foreach($users as $user) {
-            AdminUser::query()->create([
-                'name' => 'Admin',
-                'username' => 'admin',
-                'password' => '123456',
-            ]);
+            AdminUser::query()->create($user);
         }
 
         $roles = [
