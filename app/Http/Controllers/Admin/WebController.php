@@ -3,18 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\KeywordResource;
-use App\Models\Agent;
-use App\Models\Invoice;
-use App\Models\KeyWord;
-use App\Models\PayRecord;
-use Illuminate\Http\Request;
+use Illuminate\Http\{Request, Response};
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
-use DB;
-use Illuminate\Http\Response;
-use App\Models\User;
-use Carbon\Carbon;
 
 class WebController extends Controller
 {
@@ -22,20 +13,6 @@ class WebController extends Controller
     {
         $path = $request->input('path', 'uploads') . '/' . date('Y-m-d');
         $result = [];
-
-        // file 文件
-        $files = $request->file();
-        foreach ($files as $key => $fileData) {
-            $item = null;
-            if (is_array($fileData)) {
-                foreach ($fileData as $file) {
-                    $item[] = Storage::url($this->saveFile($path, $file));
-                }
-            } else {
-                $item = Storage::url($this->saveFile($path, $fileData));
-            }
-            $result[$key] = $item;
-        }
 
         // base64 图片
         $data = $request->except(['path']);
@@ -45,10 +22,12 @@ class WebController extends Controller
                 foreach ($files as $file) {
                     $item[] = Storage::url($this->saveFile($path, $file));
                 }
-            } else {
+            } else if ($files) {
                 $item = Storage::url($this->saveFile($path, $files));
             }
-            $result[$key] = $item;
+            if ($item) {
+                $result[$key] = $item;
+            }
         }
         return $this->json($result);
     }
@@ -56,7 +35,8 @@ class WebController extends Controller
     protected function saveFile($path, $file = null)
     {
         if (gettype($file) == 'object') {
-            $file = Storage::putFile($path, $file);
+            $ext = $file->getClientOriginalExtension();
+            $file = Storage::putFileAs($path, $file, uniqid() . '.' . $ext);
         } else if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $file, $result)) {
             $type = $result[2];
             if (in_array($type, array('jpeg', 'jpg', 'gif', 'bmp', 'png'))) {
