@@ -42,7 +42,7 @@ return [
         ],
 
         'admin' => [
-            'driver' => 'token',
+            'driver' => 'jwt',
             'provider' => 'admin_users',
             'hash' => false,
         ],

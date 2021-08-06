@@ -21,7 +21,6 @@ class CreateAdminTables extends Migration
             $table->string('password')->comment('密码');
             $table->string('name')->comment('姓名');
             $table->string('avatar')->nullable()->comment('头像');
-            $table->string('api_token')->nullable();
             $table->unsignedInteger('status')->default(1)->comment('状态(1: 正常, 2: 禁用)');
             $table->timestamps();
         });

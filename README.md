@@ -30,12 +30,14 @@ DB_PASSWORD=secret
 
 5. 数据库迁移: `php artisan migrate --seed`
 6. 文件上传: `php artisan storage:link` 或者 `ln -s storage/app/pubc public/storage`
+7. 生成JWT secret: `php artisan jwt:secret`
 
 ## 扩展包
 
 - [arcanedev/log-viewer](https://github.com/ARCANEDEV/LogViewer), 可视化日志管理
 - [spatie/laravel-activitylog](https://github.com/spatie/laravel-activitylog), 记录操作日志
 - [spatie/laravel-permission](https://github.com/spatie/laravel-permission), RBAC权限
+- [tymon/jwt-auth](https://jwt-auth.readthedocs.io), JWT认证
 
 ## 自定义命令
 

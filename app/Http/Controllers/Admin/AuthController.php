@@ -7,21 +7,18 @@ use App\Http\Resources\AdminUserResource;
 use App\Http\Resources\PermissionResource;
 use App\Models\AdminUser;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
-use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\{Hash, Auth};
 
 class AuthController extends Controller
 {
     public function login(Request $request)
     {
         $request->validate([
-            'password' => 'required',
-            'username' => 'required_without:phone'
+            'username' => 'required',
+            'password' => 'required'
         ], [
             'password.required' => '密码必填',
-            'username.required_without' => '用户名 或者 电话 必填'
+            'username.required' => '用户名必填'
         ]);
 
         $user = AdminUser::query()->where($request->only(['username']))->first();
@@ -52,7 +49,7 @@ class AuthController extends Controller
 
     public function update(Request $request)
     {
-        $user = Auth::guard('admin')->user();
+        $user = $this->guard()->user();
         if ($request->filled('avatar')) {
             $user->avatar = $request->input('avatar');
         }
@@ -60,7 +57,7 @@ class AuthController extends Controller
             $user->name = $request->input('name');
         }
         if ($request->filled('password')) {
-            $user->password = Hash::make( $request->input('password'));
+            $user->password = Hash::make($request->input('password'));
         }
         if ($request->hasFile('avatar')) {
             $user->avatar = $request->file('avatar');
@@ -72,21 +69,25 @@ class AuthController extends Controller
 
     public function logout()
     {
-        $user = Auth::guard('admin')->user();
+        $user = $this->guard()->user();
         $user->api_token = null;
         $user->save();
         return $this->success();
     }
 
+    protected function guard()
+    {
+        return Auth::guard('admin');
+    }
+
     protected function attemptUser(AdminUser $user)
     {
-        if (!$user->api_token) {
-            $user->api_token = Str::random(32);
-            $user->save();
-        }
+        $token = $this->guard()->login($user);
 
-        $user->offsetSet('auth_token', 1);
-
-        return $this->success(['api_token' => $user->api_token]);
+        return $this->success([
+            'access_token' => $token,
+            'token_type' => 'bearer',
+            'expire' => $this->guard()->factory()->getTTL() * 60,
+        ]);
     }
 }

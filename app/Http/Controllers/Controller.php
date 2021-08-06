@@ -23,7 +23,7 @@ class Controller extends BaseController
         return $this->json($data, Response::HTTP_OK, $message);
     }
 
-    public function error($message = '', $code = Response::HTTP_BAD_REQUEST, $data = [])
+    public function error($message = '', $code = Response::HTTP_BAD_REQUEST, $data = '')
     {
         return $this->json($data, $code, $message);
     }
