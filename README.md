@@ -39,6 +39,12 @@ DB_PASSWORD=secret
 - [spatie/laravel-permission](https://github.com/spatie/laravel-permission), RBAC权限
 - [tymon/jwt-auth](https://jwt-auth.readthedocs.io), JWT认证
 
+## 其他扩展
+
+- `SmsService` 短信验证码: 短信业务, 需要去实现 `SmsService@sendSms` 方法
+- `phone` 表单验证: 验证手机号(`app/Providers/AppServiceProvider.php#33`)
+- `sms` 表单验证: 配合 `SmsService`, 验证手机验证码
+
 ## 自定义命令
 
 - `model:fillable {table}`, 打印出 `table` 中的列名, 方便录入 `Model` 中的 `$fillable` 属性
