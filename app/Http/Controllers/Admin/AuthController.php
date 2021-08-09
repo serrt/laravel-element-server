@@ -71,8 +71,12 @@ class AuthController extends Controller
 
     public function logout()
     {
-        $this->guard()->logout();
-        return $this->success();
+		try {
+            $this->guard()->logout();
+            return $this->success();
+        } catch (\Tymon\JWTAuth\Exceptions\TokenExpiredException $e) {
+            return $this->error('无效的 access_token');
+        }
     }
 
     protected function guard()
