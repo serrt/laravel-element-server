@@ -17,6 +17,8 @@ class Handler extends ExceptionHandler
      * @var array
      */
     protected $dontReport = [
+        BaseException::class,
+        PermissionException::class,
     ];
 
     /**
