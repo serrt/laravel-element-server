@@ -4,7 +4,7 @@
 
 - mysql >= 5.7
 - php >= 7.3
-- php extension: fileinfo
+- php extension: fileinfo, gd2, mbstring
 - php function: proc_open, putenv
 - composer
 
@@ -38,6 +38,7 @@ DB_PASSWORD=secret
 - [spatie/laravel-activitylog](https://github.com/spatie/laravel-activitylog), 记录操作日志
 - [spatie/laravel-permission](https://github.com/spatie/laravel-permission), RBAC权限
 - [tymon/jwt-auth](https://jwt-auth.readthedocs.io), JWT认证
+- [mews/captcha](https://github.com/mewebstudio/captcha), 图形验证码
 
 ## 其他扩展
 

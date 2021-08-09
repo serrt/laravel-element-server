@@ -15,7 +15,9 @@ class AuthController extends Controller
     {
         $request->validate([
             'username' => 'required',
-            'password' => 'required'
+            'password' => 'required',
+            'captcha_key' => 'required',
+            'captcha_code' => ['required', 'captcha_api:' . $request->input('captcha_key') . ',' . $request->input('captcha_config', 'default')]
         ], [
             'password.required' => '密码必填',
             'username.required' => '用户名必填'
@@ -69,9 +71,7 @@ class AuthController extends Controller
 
     public function logout()
     {
-        $user = $this->guard()->user();
-        $user->api_token = null;
-        $user->save();
+        $this->guard()->logout();
         return $this->success();
     }
 
