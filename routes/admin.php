@@ -35,4 +35,6 @@ Route::group(['middleware' => ['auth:admin']], function () {
         Route::post('folder', [MediaController::class, 'addFolder']);
         Route::delete('folder', [MediaController::class, 'deleteFolder']);
     });
+
+    Route::post('oss/config', [OssController::class, 'config']);
 });
