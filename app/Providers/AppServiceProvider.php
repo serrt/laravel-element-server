@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\{Schema, Validator};
-use App\Services\SmsService;
+use App\Services\{SmsService, OssClient};
 use App\Services\Facades\SmsFacade;
 
 class AppServiceProvider extends ServiceProvider
@@ -18,6 +18,10 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->singleton('sms', function ($app) {
             return new SmsService();
+        });
+
+        $this->app->singleton('oss', function ($app) {
+            return new OssClient();
         });
     }
 
