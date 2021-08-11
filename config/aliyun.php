@@ -10,7 +10,6 @@ return [
         'schema' => 'https://',
         // 上传成功后的通知地址
         'callback' => '',
-        // 上传根目录 / 结尾!!!
-        'dir' => 'admin/'
+        'dir' => ''
     ]
 ];

@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use Illuminate\Config\Repository;
-use GuzzleHttp\Client;
+use Illuminate\Support\Str;
 
 class OssClient
 {
@@ -51,7 +51,8 @@ class OssClient
         $max_size = 1048576000;
 
         // 文件上传目录
-        $dir = $config->get('oss.dir') . $path;
+        $baseDir = $config->get('oss.dir');
+        $dir = $baseDir . (Str::endsWith($baseDir, '/' ? '' : '/')) . $path;
 
         $arr = [
             'expiration' => str_replace('+00:00', '.000Z', gmdate('c', $end)),
@@ -81,7 +82,7 @@ class OssClient
 
     public function getSignature(string $str)
     {
-        return base64_encode(hash_hmac('sha1', $str, $config->get('access_secret'), true));
+        return base64_encode(hash_hmac('sha1', $str, $this->config->get('access_secret'), true));
     }
 
     public function getHost()
