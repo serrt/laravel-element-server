@@ -24,7 +24,7 @@ class PermissionsTableSeeder extends Seeder
 
         $list = [
             ['name' => 'admin', 'display_name' => '全部权限'],
-            ['name' => 'auth', 'display_name' => '权限管理', 'children' => [
+            ['name' => 'auth', 'display_name' => '管理员', 'children' => [
                 ['name' => 'auth.admin_user', 'display_name' => '账户'],
                 ['name' => 'auth.role', 'display_name' => '角色'],
                 ['name' => 'auth.permission', 'display_name' => '权限'],

@@ -13,18 +13,7 @@ class RoleController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Role::query();
-
-        if ($request->filled('search')) {
-            $search = $request->input('search');
-            $query->where(function ($q) use ($search) {
-                $q->where('name', 'like', "%$search%")->orWhere('display_name', 'like', "%$search%");
-            });
-        }
-
-        if ($request->filled('order')) {
-            $query->orderBy($request->input('order'), $request->input('_order'));
-        }
+        $query = Role::filter($request->all());
 
         $list = $query->paginate($request->input('per_page'));
 
@@ -48,14 +37,14 @@ class RoleController extends Controller
 
     public function show($id, Request $request)
     {
-        $role = Role::with($request->input('include', []))->findOrFail($id);
+        $role = Role::filter($request->all())->findOrFail($id);
 
         return RoleResource::make($role);
     }
 
     public function update(Request $request, $id)
     {
-        $role = Role::query()->findOrFail($id);
+        $role = Role::findOrFail($id);
         $request->validate([
             'name' => Rule::unique('roles', 'name')->ignore($role->id)
         ], [
