@@ -18,6 +18,7 @@ Route::group(['middleware' => ['auth:admin']], function () {
     Route::post('profile', [AuthController::class, 'update']);
     Route::post('logout', [AuthController::class, 'logout']);
 
+    Route::get('admin-user/{id}/permissions', [AdminUserController::class, 'permissions']);
     Route::apiResource('admin-user', AdminUserController::class);
     Route::apiResource('role', RoleController::class);
     Route::get('permission/tree', [PermissionController::class, 'tree']);

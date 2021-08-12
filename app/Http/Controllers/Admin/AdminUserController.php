@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\AdminUserResource;
+use App\Http\Resources\{AdminUserResource, PermissionResource};
 use App\Models\AdminUser;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -13,17 +13,7 @@ class AdminUserController extends Controller
 {
     public function index(Request $request)
     {
-        $query = AdminUser::with($request->input('include', []));
-
-        if ($request->filled('order')) {
-            $query->orderBy($request->input('order'), $request->input('_order'));
-        }
-
-        if ($request->filled('search')) {
-            $search = $request->input('search');
-            $query->where('username', 'like', "%$search%");
-        }
-
+        $query = AdminUser::filter($request->all());
         $list = $query->paginate($request->input('per_page'));
 
         return AdminUserResource::collection($list)->additional(['code' => Response::HTTP_OK, 'message' => '']);
@@ -46,7 +36,7 @@ class AdminUserController extends Controller
 
     public function show($id, Request $request)
     {
-        $info = AdminUser::with($request->input('include', []))->findOrFail($id);
+        $info = AdminUser::filter($request->all())->findOrFail($id);
 
         return AdminUserResource::make($info);
     }
@@ -75,6 +65,14 @@ class AdminUserController extends Controller
         }
 
         return AdminUserResource::make($info);
+    }
+
+    public function permissions($id)
+    {
+        $info = AdminUser::findOrFail($id);
+        $permissions = $info->getAllPermissions();
+
+        return PermissionResource::collection($permissions)->additional(['code' => Response::HTTP_OK, 'message' => '']);
     }
 
     public function destroy($id)

@@ -8,10 +8,11 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Permission\Traits\HasRoles;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use EloquentFilter\Filterable;
 
 class AdminUser extends Authenticatable implements JWTSubject
 {
-    use Notifiable, HasRoles;
+    use Notifiable, HasRoles, Filterable;
 
     const STATUS_NORMAL = 1;
     const STATUS_DISABLE = 2;
