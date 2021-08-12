@@ -13,7 +13,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        activity()->disableLogging();
         $this->call(AdminTableSeeder::class);
         $this->call(PermissionsTableSeeder::class);
     }

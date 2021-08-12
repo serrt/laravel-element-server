@@ -35,7 +35,6 @@ DB_PASSWORD=secret
 ## 扩展包
 
 - [arcanedev/log-viewer](https://github.com/ARCANEDEV/LogViewer), 可视化日志管理
-- [spatie/laravel-activitylog](https://github.com/spatie/laravel-activitylog), 记录操作日志
 - [spatie/laravel-permission](https://github.com/spatie/laravel-permission), RBAC权限
 - [tymon/jwt-auth](https://jwt-auth.readthedocs.io), JWT认证
 - [mews/captcha](https://github.com/mewebstudio/captcha), 图形验证码

@@ -15,7 +15,6 @@ class PermissionsTableSeeder extends Seeder
      */
     public function run()
     {
-        activity()->disableLogging();
         DB::statement('SET FOREIGN_KEY_CHECKS = 0;');
         Permission::query()->truncate();
         DB::table('model_has_permissions')->truncate();
