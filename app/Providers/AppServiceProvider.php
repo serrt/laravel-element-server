@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\{Schema, Validator};
 use App\Services\{SmsService, OssClient};
 use App\Services\Facades\SmsFacade;
+use Illuminate\Database\Eloquent\Model;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -33,6 +34,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);
+        Model::preventLazyLoading(true);
 
         Validator::extend('phone', function ($attribute, $value, $parameters, $validator) {
             return preg_match('/^1[\d]{10}$/', $value);
