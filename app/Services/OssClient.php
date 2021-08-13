@@ -93,7 +93,7 @@ class OssClient
 
     public function getDomain()
     {
-        $domain = $this->config->get('domain');
+        $domain = $this->config->get('oss.domain');
         if ($domain) {
             $domain = $this->config->get('oss.schema') . $domain;
         } else {
