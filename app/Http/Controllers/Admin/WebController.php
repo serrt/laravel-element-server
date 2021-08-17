@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\{Request, Response};
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
+use Illuminate\Http\UploadedFile;
 
 class WebController extends Controller
 {
@@ -14,7 +15,6 @@ class WebController extends Controller
         $path = $request->input('path', 'uploads') . '/' . date('Y-m-d');
         $result = [];
 
-        // base64 图片
         $data = $request->except(['path']);
         foreach ($data as $key => $files) {
             $item = null;
@@ -34,7 +34,7 @@ class WebController extends Controller
 
     protected function saveFile($path, $file = null)
     {
-        if (gettype($file) == 'object') {
+        if ($file instanceof UploadedFile) {
             $ext = $file->getClientOriginalExtension();
             $file = Storage::putFileAs($path, $file, uniqid() . '.' . $ext);
         } else if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $file, $result)) {

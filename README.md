@@ -10,7 +10,7 @@
 
 ## 安装
 
-1. `git clone https://panliang:228618@gitee.com/paddy_technology/admin-api.git`
+1. `git clone https://github.com/serrt/laravel-element-server.git`
 2. `cd admin-api` && `composer install`
 3. 创建配置文件, 复制 `.env.example` 为 `.env`
 4. `php artisan key:generate`, 赋予目录 `./storage` 和 `./boostrap/cache` 写入权限(777)

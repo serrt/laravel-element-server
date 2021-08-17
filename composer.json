@@ -58,5 +58,11 @@
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
         ]
+    },
+    "repositories": {
+        "serrt": {
+            "type": "path",
+            "url": "/home/panliang/www/laravel-element/serrt/laravel-oss"
+        }
     }
 }
