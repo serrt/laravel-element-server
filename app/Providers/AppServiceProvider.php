@@ -61,7 +61,7 @@ class AppServiceProvider extends ServiceProvider
         DB::listen(function (QueryExecuted $query) {
             $request = request();
             $uri = $request->path();
-            if (Str::contains($uri, ['log-viewer']) || app()->runningInConsole()) {
+            if (!config('app.debug') || Str::contains($uri, ['log-viewer']) || app()->runningInConsole()) {
                 return;
             }
             $sqlWithPlaceholders = str_replace(['%', '?'], ['%%', '%s'], $query->sql);

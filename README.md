@@ -43,9 +43,10 @@ DB_PASSWORD=secret
 ## 其他扩展
 
 - `SmsService` 短信验证码: 短信业务, 需要去实现 `SmsService@sendSms` 方法
-- `phone` 表单验证: 验证手机号(`app/Providers/AppServiceProvider.php#33`)
+- `phone` 表单验证: 验证手机号(`app/Providers/AppServiceProvider.php`)
 - `sms` 表单验证: 配合 `SmsService`, 验证手机验证码
 - `Oss` 签名, 前端直传: `app/Services/OssClient.php`
+- `SQL日志`: `app/Providers/AppServiceProvider.php`
 
 ## 自定义命令
 
