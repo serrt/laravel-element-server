@@ -8,6 +8,7 @@ use App\Services\{SmsService, OssClient};
 use App\Services\Facades\SmsFacade;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Events\QueryExecuted;
+use Illuminate\Pagination\Paginator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -39,6 +40,9 @@ class AppServiceProvider extends ServiceProvider
 
         // 开启模型懒加载检测, 防止查询出现 n+1
         Model::preventLazyLoading(true);
+
+        // 设置默认的分页样式 bootstrap
+        Paginator::useBootstrap();
 
         // 表单验证, 手机号
         Validator::extend('phone', function ($attribute, $value, $parameters, $validator) {
